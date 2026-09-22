@@ -1,0 +1,70 @@
+# 組織共通の再利用可能ワークフロー: 静的解析（pre-commit）
+#
+# 呼び出し例（各リポジトリの .github/workflows/lint.yml）:
+#   name: lint
+#   on:
+#     pull_request:
+#     push:
+#       branches: [main]
+#   jobs:
+#     pre-commit:
+#       uses: kenny-amp/.github/.github/workflows/reusable-lint.yml@main
+#       with:
+#         python-version: "3.12"  # 省略可
+#
+# 前提: 呼び出し元リポジトリに `.pre-commit-config.yaml` が存在すること。
+#       gitleaks は専用の reusable-secret-scan.yml 側で実行するため、本ワークフローでは既定でスキップする。
+name: reusable-lint
+
+on:
+  workflow_call:
+    inputs:
+      python-version:
+        description: "セットアップする Python バージョン"
+        type: string
+        default: "3.12"
+      skip-hooks:
+        description: "pre-commit でスキップするフック名（カンマ区切り）"
+        type: string
+        default: "gitleaks"
+
+permissions:
+  contents: read
+
+jobs:
+  pre-commit:
+    name: pre-commit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405  # v6.2.0
+        with:
+          python-version: ${{ inputs.python-version }}
+
+      - name: Install pre-commit
+        run: pip install pre-commit
+
+      - name: Restore pre-commit cache
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9  # v6.1.0
+        with:
+          path: ~/.cache/pre-commit
+          key: pre-commit-${{ runner.os }}-${{ hashFiles('.pre-commit-config.yaml') }}
+
+      - name: Run pre-commit on PR diff
+        if: github.event_name == 'pull_request'
+        env:
+          SKIP: ${{ inputs.skip-hooks }}
+        run: |
+          pre-commit run \
+            --from-ref "${{ github.event.pull_request.base.sha }}" \
+            --to-ref   "${{ github.event.pull_request.head.sha }}" \
+            --show-diff-on-failure
+
+      - name: Run pre-commit on all files
+        if: github.event_name != 'pull_request'
+        env:
+          SKIP: ${{ inputs.skip-hooks }}
+        run: pre-commit run --all-files --show-diff-on-failure
