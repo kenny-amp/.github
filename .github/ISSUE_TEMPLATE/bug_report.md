@@ -1,3 +1,5 @@
+<!-- .github/templates/source/bug_report.yaml から自動生成されています。このファイルを直接編集しないでください。ソースを編集し、`python .github/templates/generate_issue_templates.py --write` を実行してください。 -->
+
 ---
 name: "不具合・障害報告 (Bug Report)"
 about: "システムの意図しない動作・エラー・障害を報告する場合"
@@ -6,7 +8,7 @@ labels: "bug, priority-triage"
 ---
 
 ## 1. 事象の概要 (Summary)
-<!-- 何が起きているかを簡潔に記述 -->
+<!-- 何が起きているかを簡潔に記述してください。 -->
 
 ## 2. 再現手順 (Steps to Reproduce)
 <!-- 現象を確実に再現するための手順 -->
@@ -20,17 +22,21 @@ labels: "bug, priority-triage"
 
 ## 4. 発生環境 (Environment)
 <!-- ITIL: インシデント特定に必要な構成要素 (CI) の記録 -->
-- **環境:** [ ] 本番 (Prod) / [ ] ステージング (Staging) / [ ] ローカル (Local)
+- [ ] 本番環境 (Production) / [ ] ステージング環境 (Staging) / [ ] 開発・ローカル環境 (Dev/Local)
+
+## 4-2. 発生環境の補足情報 (Additional Environment Details)
 - **OS / ブラウザ / アプリバージョン:**
 - **関連サービス / データベース:**
 
-## 5. 影響度・緊急度 (Impact & Urgency)
+## 5. 影響範囲 (Impact)
 <!-- ITIL: 優先度マトリクス判定用 -->
-- **影響範囲 (Impact):** [ ] 全ユーザー / [ ] 特定のユーザー群 / [ ] 内部運用のみ
-- **緊急度 (Urgency):** [ ] 即時対応が必要（サービス停止等） / [ ] 通常フローで対応可能
+- [ ] 全ユーザー / [ ] 特定のユーザー群 / [ ] 内部運用のみ
 
-## 6. ログ・証跡 (Logs & Screenshots)
-<!-- スタックトレース、エラーログ、スクリーンショットを添付 -->
+## 6. 緊急度 (Urgency)
+- [ ] 即時対応が必要（サービス停止等） / [ ] 通常フローで対応可能
+
+## 7. ログ・証跡 (Logs & Screenshots)
+<!-- スタックトレース、エラーログ、スクリーンショットを添付してください。 -->
 <details><summary>エラーログを開く</summary>
 
 ```
@@ -39,11 +45,11 @@ labels: "bug, priority-triage"
 
 </details>
 
-## 7. 仮説・回避策 (Hypothesis & Workaround)
+## 8. 仮説・回避策 (Hypothesis & Workaround)
 - **原因の仮説:**
-- **暫定回避策 (Workaround):**
+- **暫定回避策:**
 
-## 8. 完了条件 (Resolution Criteria)
+## 9. 完了条件 (Resolution Criteria)
 - [ ] 原因の特定と恒久対策（コード修正）の完了
 - [ ] 再現テストケースの作成とテスト通過
 - [ ] 本番環境での修正確認

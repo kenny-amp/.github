@@ -1,0 +1,95 @@
+id: bug_report
+name: "不具合・障害報告 (Bug Report)"
+description: "システムの意図しない動作・エラー・障害を報告する場合"
+title_prefix: "[Bug]: "
+labels: [bug, priority-triage]
+
+sections:
+  - id: summary
+    heading: "1. 事象の概要 (Summary)"
+    kind: textarea
+    description: "何が起きているかを簡潔に記述してください。"
+    required: true
+
+  - id: steps
+    heading: "2. 再現手順 (Steps to Reproduce)"
+    kind: textarea
+    description: "現象を確実に再現するための手順"
+    md_body: |
+      1.
+      2.
+      3.
+    placeholder: "1. ◯◯画面を開く\n2. △△ボタンを押す\n3. エラーが表示される"
+    required: true
+
+  - id: expected_vs_actual
+    heading: "3. 期待する挙動 vs 実際の挙動 (Expected vs Actual)"
+    kind: textarea
+    sub_labels:
+      - "期待する動作 (Expected)"
+      - "実際の動作 (Actual)"
+    required: true
+
+  - id: environment
+    heading: "4. 発生環境 (Environment)"
+    kind: dropdown
+    description: "ITIL: インシデント特定に必要な構成要素 (CI) の記録"
+    options:
+      - "本番環境 (Production)"
+      - "ステージング環境 (Staging)"
+      - "開発・ローカル環境 (Dev/Local)"
+    required: true
+
+  - id: environment_details
+    heading: "4-2. 発生環境の補足情報 (Additional Environment Details)"
+    kind: textarea
+    sub_labels:
+      - "OS / ブラウザ / アプリバージョン"
+      - "関連サービス / データベース"
+
+  - id: impact
+    heading: "5. 影響範囲 (Impact)"
+    kind: dropdown
+    description: "ITIL: 優先度マトリクス判定用"
+    options:
+      - "全ユーザー"
+      - "特定のユーザー群"
+      - "内部運用のみ"
+    required: true
+
+  - id: urgency
+    heading: "6. 緊急度 (Urgency)"
+    kind: dropdown
+    options:
+      - "即時対応が必要（サービス停止等）"
+      - "通常フローで対応可能"
+    required: true
+
+  - id: logs
+    heading: "7. ログ・証跡 (Logs & Screenshots)"
+    kind: textarea
+    description: "スタックトレース、エラーログ、スクリーンショットを添付してください。"
+    md_body: |
+      <details><summary>エラーログを開く</summary>
+
+      ```
+      (ここにログを貼り付け)
+      ```
+
+      </details>
+
+  - id: hypothesis
+    heading: "8. 仮説・回避策 (Hypothesis & Workaround)"
+    kind: textarea
+    sub_labels:
+      - "原因の仮説"
+      - "暫定回避策"
+
+  - id: resolution_criteria
+    heading: "9. 完了条件 (Resolution Criteria)"
+    kind: textarea
+    value:
+      - "原因の特定と恒久対策（コード修正）の完了"
+      - "再現テストケースの作成とテスト通過"
+      - "本番環境での修正確認"
+    required: true

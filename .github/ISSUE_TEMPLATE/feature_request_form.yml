@@ -1,3 +1,5 @@
+# .github/templates/source/feature_request.yaml から自動生成されています。このファイルを直接編集しないでください。ソースを編集し、`python .github/templates/generate_issue_templates.py --write` を実行してください。
+
 name: "機能追加・変更要求 (Feature Request) [フォーム版]"
 description: "新規機能の追加や既存仕様の変更を行う場合"
 title: "[Feature]: "
@@ -9,8 +11,8 @@ body:
     id: context
     attributes:
       label: "1. 前提・背景 (Context & User Story)"
-      description: "ISO 29148: 対象ユーザー、現状の課題、システムが必要とされる背景を記述してください。"
-      placeholder: "対象ユーザー:\n現状の課題:"
+      description: "ISO 29148: システムが必要とされる背景・ユーザーのペルソナや利用シーンを記述してください。"
+      placeholder: "対象ユーザー:\n現状の課題・ニーズ:"
     validations:
       required: true
 
@@ -18,7 +20,7 @@ body:
     id: goal
     attributes:
       label: "2. 目的・価値 (Goal & Business Value)"
-      description: "この変更により達成される状態と、期待されるメリットを記述してください。"
+      description: "この変更により達成される状態とビジネス・技術的なインパクトを記述してください。"
     validations:
       required: true
 
@@ -40,13 +42,13 @@ body:
     id: approach
     attributes:
       label: "4. 実装・設計方針 (Proposed Approach)"
-      description: "検討している技術的アプローチやアーキテクチャへの影響を記述してください。"
+      description: "検討している技術的アプローチ、設計案、アーキテクチャへの影響を記述してください。"
 
   - type: checkboxes
     id: risk_assessment
     attributes:
-      label: "5. 非機能要件・リスク評価 (Risk Assessment)"
-      description: "ISO 29148 / ISO 27001 に基づく事前チェック"
+      label: "5. 非機能要件・リスク評価 (Non-Functional & Risk Assessment)"
+      description: "ISO 29148 / ISO 27001: 性能、セキュリティ、互換性に関する事前チェック"
       options:
         - label: "パフォーマンスやレスポンス速度への重大な影響はないか？"
         - label: "セキュリティ・個人情報（PII）の取り扱いに変更はあるか？"
@@ -56,11 +58,11 @@ body:
     id: acceptance_criteria
     attributes:
       label: "6. 完了条件 (Acceptance Criteria)"
-      description: "ISO 29148: 何をもって完了とするかの検証項目を記述します。"
+      description: "ISO 29148: 検証可能性（Verifiability）の担保。何をもって完了とするかを記述します。"
       value: |
         - [ ] ユニットテスト/統合テストの追加および通過
-        - [ ] 対象環境での動作検証
-        - [ ] 関連ドキュメント（仕様書、API等）の更新
+        - [ ] 対象環境での動作検証（検証環境: ）
+        - [ ] 関連ドキュメント（仕様書、APIドキュメント等）の更新
     validations:
       required: true
 
@@ -68,4 +70,5 @@ body:
     id: traceability
     attributes:
       label: "7. トレーサビリティ・依存関係 (Traceability & Dependencies)"
-      placeholder: "親イシュー: #123\n依存イシュー: #456"
+      description: "ISO 12207: 要求とタスク間の追跡性"
+      placeholder: "親イシュー: #123\nブロッキング / 依存関係: #456"

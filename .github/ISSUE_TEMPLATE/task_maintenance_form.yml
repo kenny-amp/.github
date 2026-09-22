@@ -1,3 +1,5 @@
+# .github/templates/source/task_maintenance.yaml から自動生成されています。このファイルを直接編集しないでください。ソースを編集し、`python .github/templates/generate_issue_templates.py --write` を実行してください。
+
 name: "作業・技術改善 (Task / Maintenance) [フォーム版]"
 description: "リファクタリング、ライブラリ更新、CI/CD・開発環境の整備を行う場合"
 title: "[Task]: "
@@ -9,7 +11,7 @@ body:
     id: motivation
     attributes:
       label: "1. 現状の課題と動機 (Current State & Motivation)"
-      description: "ISO 12207 保守プロセス: 保守性低下、ライブラリ非推奨化などの背景を記述します。"
+      description: "ISO 12207 保守プロセス: 保守性低下、パフォーマンス劣化、ライブラリ非推奨化などの背景を記述します。"
     validations:
       required: true
 
@@ -17,7 +19,7 @@ body:
     id: goal
     attributes:
       label: "2. 作業目的と期待効果 (Goal & Expected Benefit)"
-      description: "この作業によって得られる保守性向上や速度改善などのメリットを記述します。"
+      description: "この作業によって得られる保守性向上・速度改善などのメリットを記述します。"
     validations:
       required: true
 
@@ -48,7 +50,7 @@ body:
       label: "5. 完了条件 (Acceptance Criteria)"
       value: |
         - [ ] リファクタリング前後の既存テストがすべて通過すること
-        - [ ] 動作・ビルド確認
+        - [ ] 動作・ビルド確認（対象環境: ）
         - [ ] 依存ライブラリの更新チェック（該当する場合）
     validations:
       required: true
