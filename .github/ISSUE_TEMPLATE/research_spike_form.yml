@@ -1,0 +1,52 @@
+name: "調査・スパイク (Research / Spike)"
+description: "技術検証、ライブラリ選定、設計検討などの調査を行う場合"
+title: "[Spike]: "
+labels:
+  - "research"
+  - "spike"
+body:
+  - type: textarea
+    id: context
+    attributes:
+      label: "1. 調査背景と問い (Context & Question)"
+      description: "何を決めるため、あるいはどんな不確実性を解消するために調査するのか記述します。"
+    validations:
+      required: true
+
+  - type: textarea
+    id: deliverables
+    attributes:
+      label: "2. 調査の目的と成果物 (Goal & Deliverables)"
+      placeholder: "- [ ] 比較検討ドキュメントの作成\n- [ ] 動作確認用PoC（概念実証）コードの作成"
+    validations:
+      required: true
+
+  - type: input
+    id: timebox
+    attributes:
+      label: "3. タイムボックス (Timebox)"
+      description: "調査の無制限化を防ぐための工数・期限（例: 8時間、または 2026-10-01まで）"
+    validations:
+      required: true
+
+  - type: textarea
+    id: research_items
+    attributes:
+      label: "4. 調査項目・検証観点 (Research Items)"
+      placeholder: "- [ ] 項目1:\n- [ ] 項目2:"
+
+  - type: textarea
+    id: decision_criteria
+    attributes:
+      label: "5. 意思決定・評価基準 (Decision Criteria)"
+      description: "選定や採用可否を判断するための軸（コスト、学習コスト、パフォーマンス等）"
+
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: "6. 完了条件 (Acceptance Criteria)"
+      value: |
+        - [ ] 調査結果・結論がイシューコメントまたはドキュメントにまとめられていること
+        - [ ] 次のアクション（開発イシューの切り出し等）が明確になっていること
+    validations:
+      required: true

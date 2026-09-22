@@ -1,0 +1,60 @@
+name: "作業・技術改善 (Task / Maintenance)"
+description: "リファクタリング、ライブラリ更新、CI/CD・開発環境の整備を行う場合"
+title: "[Task]: "
+labels:
+  - "maintenance"
+  - "refactoring"
+body:
+  - type: textarea
+    id: motivation
+    attributes:
+      label: "1. 現状の課題と動機 (Current State & Motivation)"
+      description: "ISO 12207 保守プロセス: 保守性低下、ライブラリ非推奨化などの背景を記述します。"
+    validations:
+      required: true
+
+  - type: textarea
+    id: goal
+    attributes:
+      label: "2. 作業目的と期待効果 (Goal & Expected Benefit)"
+      description: "この作業によって得られる保守性向上や速度改善などのメリットを記述します。"
+    validations:
+      required: true
+
+  - type: textarea
+    id: in_scope
+    attributes:
+      label: "3-1. 作業内容 (In Scope)"
+      placeholder: "- [ ] "
+    validations:
+      required: true
+
+  - type: textarea
+    id: out_of_scope
+    attributes:
+      label: "3-2. 対象外 (Out of Scope)"
+
+  - type: checkboxes
+    id: compatibility
+    attributes:
+      label: "4. 影響範囲・互換性チェック (Impact & Compatibility)"
+      options:
+        - label: "既存機能への退行（レグレッション）リスクについての対策はあるか？"
+        - label: "他モジュールや外部サービスへの依存影響を確認したか？"
+
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: "5. 完了条件 (Acceptance Criteria)"
+      value: |
+        - [ ] リファクタリング前後の既存テストがすべて通過すること
+        - [ ] 動作・ビルド確認
+        - [ ] 依存ライブラリの更新チェック（該当する場合）
+    validations:
+      required: true
+
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: "6. 関連チケット (Dependencies)"
+      placeholder: "関連イシュー / PR: #"
