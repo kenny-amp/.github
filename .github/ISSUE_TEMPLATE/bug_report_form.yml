@@ -1,0 +1,117 @@
+# .github/templates/source/bug_report.yaml から自動生成されています。このファイルを直接編集しないでください。ソースを編集し、`python .github/templates/generate_issue_templates.py --write` を実行してください。
+
+name: "不具合・障害報告 (Bug Report) [フォーム版]"
+description: "システムの意図しない動作・エラー・障害を報告する場合"
+title: "[Bug]: "
+labels:
+  - "bug"
+  - "priority-triage"
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: "1. 事象の概要 (Summary)"
+      description: "何が起きているかを簡潔に記述してください。"
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: "2. 再現手順 (Steps to Reproduce)"
+      description: "現象を確実に再現するための手順"
+      placeholder: "1. ◯◯画面を開く\n2. △△ボタンを押す\n3. エラーが表示される"
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected_vs_actual
+    attributes:
+      label: "3. 期待する挙動 vs 実際の挙動 (Expected vs Actual)"
+      placeholder: "期待する動作 (Expected):\n実際の動作 (Actual):"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: environment
+    attributes:
+      label: "4. 発生環境 (Environment)"
+      description: "ITIL: インシデント特定に必要な構成要素 (CI) の記録"
+      options:
+        - "本番環境 (Production)"
+        - "ステージング環境 (Staging)"
+        - "開発・ローカル環境 (Dev/Local)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment_details
+    attributes:
+      label: "4-2. 発生環境の補足情報 (Additional Environment Details)"
+      placeholder: "OS / ブラウザ / アプリバージョン:\n関連サービス / データベース:"
+
+  - type: dropdown
+    id: impact
+    attributes:
+      label: "5. 影響範囲 (Impact)"
+      description: "ITIL: 優先度マトリクス判定用（入力）"
+      options:
+        - "全ユーザー"
+        - "特定のユーザー群"
+        - "内部運用のみ"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: urgency
+    attributes:
+      label: "6. 緊急度 (Urgency)"
+      description: "ITIL: 優先度マトリクス判定用（入力）"
+      options:
+        - "即時対応が必要（サービス停止等）"
+        - "通常フローで対応可能"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: "7. 優先度 (Priority)"
+      description: "ITIL V4 優先度マトリクス: 上記「影響範囲」×「緊急度」を掛け合わせた結果（出力）を記録してください。"
+      options:
+        - "P1: 緊急（即時対応）"
+        - "P2: 高（当日〜翌営業日）"
+        - "P3: 中（通常フロー）"
+        - "P4: 低（計画的に対応）"
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: "8. ログ・証跡 (Logs & Screenshots)"
+      description: "スタックトレース、エラーログ、スクリーンショットを添付してください。"
+
+  - type: textarea
+    id: hypothesis
+    attributes:
+      label: "9. 仮説・回避策 (Hypothesis & Workaround)"
+      placeholder: "原因の仮説:\n暫定回避策:"
+
+  - type: textarea
+    id: related_problem
+    attributes:
+      label: "10. 関連Problem / 既知のエラー (Related Problem / Known Error)"
+      description: "ITIL V4 Problem Management: 同種の事象が繰り返す場合は Problem Record を作成しリンクしてください（未作成の場合は空欄で構いません）。"
+      placeholder: "関連Problem: #42"
+
+  - type: textarea
+    id: resolution_criteria
+    attributes:
+      label: "11. 完了条件 (Resolution Criteria)"
+      value: |
+        - [ ] 原因の特定と恒久対策（コード修正）の完了
+        - [ ] 再現テストケースの作成とテスト通過
+        - [ ] 本番環境での修正確認
+    validations:
+      required: true

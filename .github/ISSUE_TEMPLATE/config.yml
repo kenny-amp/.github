@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 質問・サポート
+    url: https://github.com/orgs/kenny-amp/discussions
+    about: バグ報告や機能要求に該当しない質問・相談は Discussions をご利用ください
+  - name: セキュリティ脆弱性の報告
+    url: https://github.com/kenny-amp/.github/blob/main/SECURITY.md
+    about: 脆弱性報告の手順は SECURITY.md を参照してください（公開Issueでの報告は禁止）

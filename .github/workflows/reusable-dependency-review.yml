@@ -1,0 +1,38 @@
+# 組織共通の再利用可能ワークフロー: 依存関係の脆弱性レビュー
+#
+# 呼び出し例（各リポジトリの .github/workflows/dependency-review.yml）:
+#   name: dependency-review
+#   on:
+#     pull_request:
+#   jobs:
+#     dependency-review:
+#       uses: kenny-amp/.github/.github/workflows/reusable-dependency-review.yml@main
+#       with:
+#         fail-on-severity: high  # 省略可
+#
+# 前提: リポジトリ Settings → Code security and analysis → Dependency graph が有効であること。
+#       無効な場合は本ジョブは実質的に何も検出できないため、有効化してから利用すること。
+name: reusable-dependency-review
+
+on:
+  workflow_call:
+    inputs:
+      fail-on-severity:
+        description: "この深刻度以上の脆弱性でPRを失敗させる"
+        type: string
+        default: "high"
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  dependency-review:
+    name: dependency-review
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+      - uses: actions/dependency-review-action@a1d282b36b6f3519aa1f3fc636f609c47dddb294  # v5.0.0
+        with:
+          fail-on-severity: ${{ inputs.fail-on-severity }}
+          comment-summary-in-pr: on-failure

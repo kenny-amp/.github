@@ -1,0 +1,75 @@
+# .github/templates/source/task_maintenance.yaml から自動生成されています。このファイルを直接編集しないでください。ソースを編集し、`python .github/templates/generate_issue_templates.py --write` を実行してください。
+
+name: "作業・技術改善 (Task / Maintenance) [フォーム版]"
+description: "リファクタリング、ライブラリ更新、CI/CD・開発環境の整備を行う場合"
+title: "[Task]: "
+labels:
+  - "maintenance"
+  - "refactoring"
+body:
+  - type: textarea
+    id: motivation
+    attributes:
+      label: "1. 現状の課題と動機 (Current State & Motivation)"
+      description: "ISO 12207 保守プロセス: 保守性低下、パフォーマンス劣化、ライブラリ非推奨化などの背景を記述します。"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: maintenance_type
+    attributes:
+      label: "2. 保守種別 (Maintenance Type)"
+      description: "ISO/IEC 14764（ISO/IEC/IEEE 12207 保守プロセスに対応する分類規格）に基づく分類"
+      options:
+        - "是正保守 (Corrective) — 不具合の修正"
+        - "適応保守 (Adaptive) — 環境変化（OS/ライブラリ/インフラ等）への対応"
+        - "完全化保守 (Perfective) — 性能・保守性・可読性の向上"
+        - "予防保守 (Preventive) — 潜在的な障害の予防"
+    validations:
+      required: true
+
+  - type: textarea
+    id: goal
+    attributes:
+      label: "3. 作業目的と期待効果 (Goal & Expected Benefit)"
+      description: "この作業によって得られる保守性向上・速度改善などのメリットを記述します。"
+    validations:
+      required: true
+
+  - type: textarea
+    id: in_scope
+    attributes:
+      label: "4-1. 作業内容 (In Scope)"
+      placeholder: "- [ ] "
+    validations:
+      required: true
+
+  - type: textarea
+    id: out_of_scope
+    attributes:
+      label: "4-2. 対象外 (Out of Scope)"
+
+  - type: checkboxes
+    id: compatibility
+    attributes:
+      label: "5. 影響範囲・互換性チェック (Impact & Compatibility)"
+      options:
+        - label: "既存機能への退行（レグレッション）リスクについての対策はあるか？"
+        - label: "他モジュールや外部サービスへの依存影響を確認したか？"
+
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: "6. 完了条件 (Acceptance Criteria)"
+      value: |
+        - [ ] リファクタリング前後の既存テストがすべて通過すること
+        - [ ] 動作・ビルド確認（対象環境: ）
+        - [ ] 依存ライブラリの更新チェック（該当する場合）
+    validations:
+      required: true
+
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: "7. 関連チケット (Dependencies)"
+      placeholder: "関連イシュー / PR: #"
