@@ -1,5 +1,4 @@
-# PR タイトル
-<!-- Conventional Commits 準拠: type(scope): summary -->
+<!-- PRタイトル（上部のタイトル欄）は Conventional Commits 準拠で入力してください: type(scope): summary -->
 
 ## 変更内容
 <!-- 何を変えたか、簡潔に -->
