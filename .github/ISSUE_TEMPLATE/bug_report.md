@@ -29,13 +29,18 @@ labels: "bug, priority-triage"
 - **関連サービス / データベース:**
 
 ## 5. 影響範囲 (Impact)
-<!-- ITIL: 優先度マトリクス判定用 -->
+<!-- ITIL: 優先度マトリクス判定用（入力） -->
 - [ ] 全ユーザー / [ ] 特定のユーザー群 / [ ] 内部運用のみ
 
 ## 6. 緊急度 (Urgency)
+<!-- ITIL: 優先度マトリクス判定用（入力） -->
 - [ ] 即時対応が必要（サービス停止等） / [ ] 通常フローで対応可能
 
-## 7. ログ・証跡 (Logs & Screenshots)
+## 7. 優先度 (Priority)
+<!-- ITIL V4 優先度マトリクス: 上記「影響範囲」×「緊急度」を掛け合わせた結果（出力）を記録してください。 -->
+- [ ] P1: 緊急（即時対応） / [ ] P2: 高（当日〜翌営業日） / [ ] P3: 中（通常フロー） / [ ] P4: 低（計画的に対応）
+
+## 8. ログ・証跡 (Logs & Screenshots)
 <!-- スタックトレース、エラーログ、スクリーンショットを添付してください。 -->
 <details><summary>エラーログを開く</summary>
 
@@ -45,11 +50,15 @@ labels: "bug, priority-triage"
 
 </details>
 
-## 8. 仮説・回避策 (Hypothesis & Workaround)
+## 9. 仮説・回避策 (Hypothesis & Workaround)
 - **原因の仮説:**
 - **暫定回避策:**
 
-## 9. 完了条件 (Resolution Criteria)
+## 10. 関連Problem / 既知のエラー (Related Problem / Known Error)
+<!-- ITIL V4 Problem Management: 同種の事象が繰り返す場合は Problem Record を作成しリンクしてください（未作成の場合は空欄で構いません）。 -->
+- 関連Problem: #
+
+## 11. 完了条件 (Resolution Criteria)
 - [ ] 原因の特定と恒久対策（コード修正）の完了
 - [ ] 再現テストケースの作成とテスト通過
 - [ ] 本番環境での修正確認

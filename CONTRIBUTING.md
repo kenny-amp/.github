@@ -29,13 +29,19 @@ kenny-amp organization 配下のリポジトリにおける共通の開発参加
 | ci | CI/CD 設定の変更 |
 
 ## Issue の作成
-用途に応じて [Issue テンプレート](./.github/ISSUE_TEMPLATE/) を使い分けてください。
-- `feature_request.md`: 機能追加・仕様変更
-- `bug_report.md`: 不具合・障害報告
-- `task_maintenance.md`: リファクタリング・技術改善
-- `research_spike.md`: 技術調査・PoC
+用途に応じて [Issue テンプレート](./.github/ISSUE_TEMPLATE/) を使い分けてください。各テンプレートは Markdown版（`*.md`）と YAML Forms版（`*_form.yml`、末尾に `[フォーム版]`）の両方を用意しています。
+- `feature_request`: 機能追加・仕様変更
+- `bug_report`: 不具合・障害報告
+- `task_maintenance`: リファクタリング・技術改善
+- `research_spike`: 技術調査・PoC
+- `problem_record`: 複数インシデントに共通する根本原因の追跡（ITIL Problem Management）
 
-## Pull Request の作成
+テンプレートの中身を変更する場合は `.github/ISSUE_TEMPLATE/*.md` / `*_form.yml` を直接編集せず、[`.github/templates/source/`](./.github/templates/source/) のソースYAMLを編集して `python .github/templates/generate_issue_templates.py --write` を実行してください（生成物はCIで最新かどうか検証されます）。
+
+### ラベル
+Issueテンプレートが参照するラベル（`bug`, `feature`, `priority-triage` 等）は [`labels.yml`](./labels.yml) を唱一のソースとして管理しています。各リポジトリで `.github/workflows/reusable-label-sync.yml` を呼び出すワークフローを設定し、ラベルを同期してください（未同期の場合、テンプレート指定のラベルはIssue作成時にサイレントに無視されます）。
+
+### Pull Request の作成
 - [PR テンプレート](./.github/PULL_REQUEST_TEMPLATE.md) に沿って記載してください
 - 1 PR = 1 目的を原則とし、レビューしやすい粒度に分割してください
 - CI（lint / secret-scan 等）がすべて通過していることを確認してください

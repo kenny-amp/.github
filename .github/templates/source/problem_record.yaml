@@ -1,0 +1,61 @@
+id: problem_record
+name: "問題記録 (Problem Record)"
+description: "複数のインシデントに共通する根本原因を追跡・管理する場合"
+title_prefix: "[Problem]: "
+labels: [problem, root-cause]
+
+sections:
+  - id: summary
+    heading: "1. 問題の概要 (Problem Summary)"
+    kind: textarea
+    description: "ITIL V4 Problem Management: 繰り返し発生している事象・パターンを記述してください。"
+    required: true
+
+  - id: related_incidents
+    heading: "2. 関連インシデント (Related Incidents)"
+    kind: textarea
+    description: "この問題に関連する Bug Report のイシュー番号を列挙してください。"
+    example_lines:
+      - ["インシデント", "101"]
+      - ["インシデント", "108"]
+
+  - id: root_cause_analysis
+    heading: "3. 根本原因分析 (Root Cause Analysis)"
+    kind: textarea
+    description: "ITIL V4 / ISO 12207 Problem Resolution: 根本原因の分析結果を記述してください。"
+
+  - id: known_error
+    heading: "4. 既知のエラー登録 (Known Error Record)"
+    kind: textarea
+    description: "既知のエラー（Known Error）として記録する暫定回避策と影響範囲。KEDB（既知のエラーデータベース）に相当する情報です。"
+    sub_labels:
+      - "暫定回避策 (Workaround)"
+      - "影響を受ける機能・サービス"
+
+  - id: permanent_fix
+    heading: "5. 恒久対策 (Permanent Fix)"
+    kind: textarea
+    description: "恒久対策の内容、または対応する Task/Maintenance イシューへのリンクを記述してください。"
+    example_lines:
+      - ["対応イシュー", "120"]
+
+  - id: status
+    heading: "6. ステータス (Problem Status)"
+    kind: dropdown
+    description: "ITIL V4 Problem Management のライフサイクル"
+    options:
+      - "調査中 (Under Investigation)"
+      - "既知のエラー (Known Error)"
+      - "恒久対策の実施中 (Fix in Progress)"
+      - "解決済み (Resolved)"
+      - "クローズ (Closed)"
+    required: true
+
+  - id: acceptance_criteria
+    heading: "7. 完了条件 (Acceptance Criteria)"
+    kind: textarea
+    value:
+      - "根本原因分析（RCA）が文書化されていること"
+      - "恒久対策が実施され、関連インシデントが再発していないこと"
+      - "既知のエラー登録がクローズされていること"
+    required: true

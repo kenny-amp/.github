@@ -1,0 +1,69 @@
+# 組織共通の再利用可能ワークフロー: Issueラベルの同期
+#
+# 呼び出し例（各リポジトリの .github/workflows/label-sync.yml）:
+#   name: label-sync
+#   on:
+#     workflow_dispatch:
+#     schedule:
+#       - cron: "0 4 * * 1"  # 毎週月曜 13:00 JST
+#   jobs:
+#     sync:
+#       uses: kenny-amp/.github/.github/workflows/reusable-label-sync.yml@main
+#
+# 前提: kenny-amp/.github の labels.yml をラベル定義の唱一のソースとして同期する。
+#       既存ラベルの色・説明も上書きされる（削除はしない: 未定義ラベルはそのまま残る）。
+name: reusable-label-sync
+
+on:
+  workflow_call:
+    inputs:
+      labels-source-url:
+        description: "同期元となる labels.yml の raw URL"
+        type: string
+        default: "https://raw.githubusercontent.com/kenny-amp/.github/main/labels.yml"
+
+permissions:
+  issues: write
+
+jobs:
+  sync:
+    name: sync-labels
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405  # v6.2.0
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Download canonical labels.yml
+        run: curl -sSfL "${{ inputs.labels-source-url }}" -o labels.yml
+
+      - name: Sync labels via gh CLI
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import subprocess
+          import yaml
+
+          with open("labels.yml", encoding="utf-8") as f:
+              labels = yaml.safe_load(f)
+
+          for lbl in labels:
+              name = lbl["name"]
+              color = lbl["color"]
+              description = lbl.get("description", "")
+              # --force: 既存ラベルがあれば色・説明を上書き、無ければ新規作成（冪等）
+              subprocess.run(
+                  [
+                      "gh", "label", "create", name,
+                      "--color", color,
+                      "--description", description,
+                      "--force",
+                  ],
+                  check=True,
+              )
+              print(f"synced: {name}")
+          PY

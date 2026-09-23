@@ -1,0 +1,49 @@
+# 組織共通ラベル定義（各リポジトリの Issue テンプレートが参照するラベル）。
+#
+# .github/workflows/reusable-label-sync.yml から参照される唱一のソースです。
+# 各リポジトリはこのファイルを直接コピーせず、reusable-label-sync.yml を
+# workflow_call で呼び出すことでラベルを同期してください。
+#
+# 参考: GitHub新規リポジトリのデフォルトラベルは bug / enhancement など少数のみで、
+# 以下のカスタムラベルは各リポジトリで作成しないとIssueテンプレートの
+labels: 指定が（エラーにならず）サイレントに無視されます。
+
+- name: bug
+  color: "d73a4a"
+  description: "不具合・障害報告 (Bug Report)"
+
+- name: enhancement
+  color: "a2eeef"
+  description: "機能追加・変更要求 (Feature Request)"
+
+- name: feature
+  color: "0e8a16"
+  description: "新規機能"
+
+- name: priority-triage
+  color: "fbca04"
+  description: "優先度の一次トリアージが未実施"
+
+- name: maintenance
+  color: "c5def5"
+  description: "作業・技術改善 (Task / Maintenance)"
+
+- name: refactoring
+  color: "bfd4f2"
+  description: "リファクタリング"
+
+- name: research
+  color: "d4c5f9"
+  description: "調査・スパイク (Research / Spike)"
+
+- name: spike
+  color: "c2a6f0"
+  description: "技術検証・PoC"
+
+- name: problem
+  color: "5319e7"
+  description: "問題記録 (Problem Record) — ITIL V4 Problem Management"
+
+- name: root-cause
+  color: "8b1e3f"
+  description: "根本原因が特定されている"

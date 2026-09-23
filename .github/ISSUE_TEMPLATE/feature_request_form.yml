@@ -24,10 +24,29 @@ body:
     validations:
       required: true
 
+  - type: dropdown
+    id: priority
+    attributes:
+      label: "3. 優先度 (Priority)"
+      description: "ISO 29148: 要求属性としての優先度（MoSCoW法）"
+      options:
+        - "Must（必須）— これが無いとリリースできない"
+        - "Should（重要）— 重要だが代替手段がある"
+        - "Could（任意）— あれば望ましい"
+        - "Won't（今回は見送り）— 将来検討"
+    validations:
+      required: true
+
+  - type: textarea
+    id: constraints
+    attributes:
+      label: "4. 前提条件・制約 (Assumptions & Constraints)"
+      description: "ISO 29148: この要求が成立する前提や、技術的・組織的な制約を記述してください。"
+
   - type: textarea
     id: in_scope
     attributes:
-      label: "3-1. やること (In Scope)"
+      label: "5-1. やること (In Scope)"
       placeholder: "- [ ] "
     validations:
       required: true
@@ -35,19 +54,19 @@ body:
   - type: textarea
     id: out_of_scope
     attributes:
-      label: "3-2. やらないこと (Out of Scope)"
+      label: "5-2. やらないこと (Out of Scope)"
       description: "Scope Creep（範囲拡大）を防ぐため、今回あえて含めない作業を記述します。"
 
   - type: textarea
     id: approach
     attributes:
-      label: "4. 実装・設計方針 (Proposed Approach)"
+      label: "6. 実装・設計方針 (Proposed Approach)"
       description: "検討している技術的アプローチ、設計案、アーキテクチャへの影響を記述してください。"
 
   - type: checkboxes
     id: risk_assessment
     attributes:
-      label: "5. 非機能要件・リスク評価 (Non-Functional & Risk Assessment)"
+      label: "7. 非機能要件・リスク評価 (Non-Functional & Risk Assessment)"
       description: "ISO 29148 / ISO 27001: 性能、セキュリティ、互換性に関する事前チェック"
       options:
         - label: "パフォーマンスやレスポンス速度への重大な影響はないか？"
@@ -55,9 +74,28 @@ body:
         - label: "既存APIやDB構造の破壊的変更（Breaking Change）が含まれるか？"
 
   - type: textarea
+    id: rollback_plan
+    attributes:
+      label: "8. ロールバック / バックアウト計画 (Rollback & Backout Plan)"
+      description: "ITIL V4 Change Enablement: リリース後に問題が発生した場合の切り戻し手順を記述してください。"
+
+  - type: dropdown
+    id: verification_method
+    attributes:
+      label: "9. 検証方法 (Verification Method)"
+      description: "ISO 29148: 完了条件をどのように検証するか"
+      options:
+        - "テスト (Test)"
+        - "デモンストレーション (Demonstration)"
+        - "検査 (Inspection)"
+        - "分析 (Analysis)"
+    validations:
+      required: true
+
+  - type: textarea
     id: acceptance_criteria
     attributes:
-      label: "6. 完了条件 (Acceptance Criteria)"
+      label: "10. 完了条件 (Acceptance Criteria)"
       description: "ISO 29148: 検証可能性（Verifiability）の担保。何をもって完了とするかを記述します。"
       value: |
         - [ ] ユニットテスト/統合テストの追加および通過
@@ -69,6 +107,6 @@ body:
   - type: textarea
     id: traceability
     attributes:
-      label: "7. トレーサビリティ・依存関係 (Traceability & Dependencies)"
+      label: "11. トレーサビリティ・依存関係 (Traceability & Dependencies)"
       description: "ISO 12207: 要求とタスク間の追跡性"
       placeholder: "親イシュー: #123\nブロッキング / 依存関係: #456"

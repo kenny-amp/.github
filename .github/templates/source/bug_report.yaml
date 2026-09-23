@@ -50,7 +50,7 @@ sections:
   - id: impact
     heading: "5. 影響範囲 (Impact)"
     kind: dropdown
-    description: "ITIL: 優先度マトリクス判定用"
+    description: "ITIL: 優先度マトリクス判定用（入力）"
     options:
       - "全ユーザー"
       - "特定のユーザー群"
@@ -60,13 +60,25 @@ sections:
   - id: urgency
     heading: "6. 緊急度 (Urgency)"
     kind: dropdown
+    description: "ITIL: 優先度マトリクス判定用（入力）"
     options:
       - "即時対応が必要（サービス停止等）"
       - "通常フローで対応可能"
     required: true
 
+  - id: priority
+    heading: "7. 優先度 (Priority)"
+    kind: dropdown
+    description: "ITIL V4 優先度マトリクス: 上記「影響範囲」×「緊急度」を掛け合わせた結果（出力）を記録してください。"
+    options:
+      - "P1: 緊急（即時対応）"
+      - "P2: 高（当日〜翌営業日）"
+      - "P3: 中（通常フロー）"
+      - "P4: 低（計画的に対応）"
+    required: true
+
   - id: logs
-    heading: "7. ログ・証跡 (Logs & Screenshots)"
+    heading: "8. ログ・証跡 (Logs & Screenshots)"
     kind: textarea
     description: "スタックトレース、エラーログ、スクリーンショットを添付してください。"
     md_body: |
@@ -79,14 +91,21 @@ sections:
       </details>
 
   - id: hypothesis
-    heading: "8. 仮説・回避策 (Hypothesis & Workaround)"
+    heading: "9. 仮説・回避策 (Hypothesis & Workaround)"
     kind: textarea
     sub_labels:
       - "原因の仮説"
       - "暫定回避策"
 
+  - id: related_problem
+    heading: "10. 関連Problem / 既知のエラー (Related Problem / Known Error)"
+    kind: textarea
+    description: "ITIL V4 Problem Management: 同種の事象が繰り返す場合は Problem Record を作成しリンクしてください（未作成の場合は空欄で構いません）。"
+    example_lines:
+      - ["関連Problem", "42"]
+
   - id: resolution_criteria
-    heading: "9. 完了条件 (Resolution Criteria)"
+    heading: "11. 完了条件 (Resolution Criteria)"
     kind: textarea
     value:
       - "原因の特定と恒久対策（コード修正）の完了"

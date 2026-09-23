@@ -54,7 +54,7 @@ body:
     id: impact
     attributes:
       label: "5. 影響範囲 (Impact)"
-      description: "ITIL: 優先度マトリクス判定用"
+      description: "ITIL: 優先度マトリクス判定用（入力）"
       options:
         - "全ユーザー"
         - "特定のユーザー群"
@@ -66,28 +66,49 @@ body:
     id: urgency
     attributes:
       label: "6. 緊急度 (Urgency)"
+      description: "ITIL: 優先度マトリクス判定用（入力）"
       options:
         - "即時対応が必要（サービス停止等）"
         - "通常フローで対応可能"
     validations:
       required: true
 
+  - type: dropdown
+    id: priority
+    attributes:
+      label: "7. 優先度 (Priority)"
+      description: "ITIL V4 優先度マトリクス: 上記「影響範囲」×「緊急度」を掛け合わせた結果（出力）を記録してください。"
+      options:
+        - "P1: 緊急（即時対応）"
+        - "P2: 高（当日〜翌営業日）"
+        - "P3: 中（通常フロー）"
+        - "P4: 低（計画的に対応）"
+    validations:
+      required: true
+
   - type: textarea
     id: logs
     attributes:
-      label: "7. ログ・証跡 (Logs & Screenshots)"
+      label: "8. ログ・証跡 (Logs & Screenshots)"
       description: "スタックトレース、エラーログ、スクリーンショットを添付してください。"
 
   - type: textarea
     id: hypothesis
     attributes:
-      label: "8. 仮説・回避策 (Hypothesis & Workaround)"
+      label: "9. 仮説・回避策 (Hypothesis & Workaround)"
       placeholder: "原因の仮説:\n暫定回避策:"
+
+  - type: textarea
+    id: related_problem
+    attributes:
+      label: "10. 関連Problem / 既知のエラー (Related Problem / Known Error)"
+      description: "ITIL V4 Problem Management: 同種の事象が繰り返す場合は Problem Record を作成しリンクしてください（未作成の場合は空欄で構いません）。"
+      placeholder: "関連Problem: #42"
 
   - type: textarea
     id: resolution_criteria
     attributes:
-      label: "9. 完了条件 (Resolution Criteria)"
+      label: "11. 完了条件 (Resolution Criteria)"
       value: |
         - [ ] 原因の特定と恒久対策（コード修正）の完了
         - [ ] 再現テストケースの作成とテスト通過
