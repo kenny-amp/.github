@@ -39,9 +39,9 @@ kenny-amp organization 配下のリポジトリにおける共通の開発参加
 テンプレートの中身を変更する場合は `.github/ISSUE_TEMPLATE/*.md` / `*_form.yml` を直接編集せず、[`.github/templates/source/`](./.github/templates/source/) のソースYAMLを編集して `python .github/templates/generate_issue_templates.py --write` を実行してください（生成物はCIで最新かどうか検証されます）。
 
 ### ラベル
-Issueテンプレートが参照するラベル（`bug`, `feature`, `priority-triage` 等）は [`labels.yml`](./labels.yml) を唱一のソースとして管理しています。各リポジトリで `.github/workflows/reusable-label-sync.yml` を呼び出すワークフローを設定し、ラベルを同期してください（未同期の場合、テンプレート指定のラベルはIssue作成時にサイレントに無視されます）。
+Issueテンプレートが参照するラベル（`bug`, `feature`, `priority-triage` 等）は [`labels.yml`](./labels.yml) を唯一のソースとして管理しています。各リポジトリで `.github/workflows/reusable-label-sync.yml` を呼び出すワークフローを設定し、ラベルを同期してください（未同期の場合、テンプレート指定のラベルはIssue作成時にサイレントに無視されます）。
 
-### Pull Request の作成
+## Pull Request の作成
 - [PR テンプレート](./.github/PULL_REQUEST_TEMPLATE.md) に沿って記載してください
 - 1 PR = 1 目的を原則とし、レビューしやすい粒度に分割してください
 - CI（lint / secret-scan 等）がすべて通過していることを確認してください

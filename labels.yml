@@ -1,12 +1,12 @@
 # 組織共通ラベル定義（各リポジトリの Issue テンプレートが参照するラベル）。
 #
-# .github/workflows/reusable-label-sync.yml から参照される唱一のソースです。
+# .github/workflows/reusable-label-sync.yml から参照される唯一のソースです。
 # 各リポジトリはこのファイルを直接コピーせず、reusable-label-sync.yml を
 # workflow_call で呼び出すことでラベルを同期してください。
 #
 # 参考: GitHub新規リポジトリのデフォルトラベルは bug / enhancement など少数のみで、
 # 以下のカスタムラベルは各リポジトリで作成しないとIssueテンプレートの
-labels: 指定が（エラーにならず）サイレントに無視されます。
+# labels: 指定が（エラーにならず）サイレントに無視されます。
 
 - name: bug
   color: "d73a4a"

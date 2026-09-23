@@ -10,7 +10,7 @@
 #     sync:
 #       uses: kenny-amp/.github/.github/workflows/reusable-label-sync.yml@main
 #
-# 前提: kenny-amp/.github の labels.yml をラベル定義の唱一のソースとして同期する。
+# 前提: kenny-amp/.github の labels.yml をラベル定義の唯一のソースとして同期する。
 #       既存ラベルの色・説明も上書きされる（削除はしない: 未定義ラベルはそのまま残る）。
 name: reusable-label-sync
 
