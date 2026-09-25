@@ -4,7 +4,7 @@
 name: "調査・スパイク (Research / Spike)"
 about: "技術検証、ライブラリ選定、設計検討などの調査を行う場合"
 title: "[Spike]: "
-labels: "research, spike"
+labels: "research"
 ---
 
 ## 1. 調査背景と問い (Context & Question)
@@ -21,8 +21,8 @@ labels: "research, spike"
 - **予定消化工数・期限:** 時間（または 月 日まで）
 
 ## 4. 調査項目・検証観点 (Research Items)
-- [ ] 項目1: 
-- [ ] 項目2: 
+- [ ] 項目1:
+- [ ] 項目2:
 
 ## 5. 意思決定・評価基準 (Decision Criteria)
 <!-- 選定や採用可否を判断するための基準（コスト、学習コスト、パフォーマンス等） -->

@@ -4,7 +4,7 @@
 name: "作業・技術改善 (Task / Maintenance)"
 about: "リファクタリング、ライブラリ更新、CI/CD・開発環境の整備を行う場合"
 title: "[Task]: "
-labels: "maintenance, refactoring"
+labels: "maintenance"
 ---
 
 ## 1. 現状の課題と動機 (Current State & Motivation)

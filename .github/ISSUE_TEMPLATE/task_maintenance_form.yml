@@ -5,7 +5,6 @@ description: "リファクタリング、ライブラリ更新、CI/CD・開発�
 title: "[Task]: "
 labels:
   - "maintenance"
-  - "refactoring"
 body:
   - type: textarea
     id: motivation

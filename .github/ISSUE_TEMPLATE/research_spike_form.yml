@@ -5,7 +5,6 @@ description: "技術検証、ライブラリ選定、設計検討などの調査
 title: "[Spike]: "
 labels:
   - "research"
-  - "spike"
 body:
   - type: textarea
     id: context
@@ -40,8 +39,8 @@ body:
     attributes:
       label: "4. 調査項目・検証観点 (Research Items)"
       value: |
-        - [ ] 項目1: 
-        - [ ] 項目2: 
+        - [ ] 項目1:
+        - [ ] 項目2:
 
   - type: textarea
     id: decision_criteria

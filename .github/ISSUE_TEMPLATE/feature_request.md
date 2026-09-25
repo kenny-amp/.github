@@ -4,7 +4,7 @@
 name: "機能追加・変更要求 (Feature Request)"
 about: "新規機能の追加や既存仕様の変更を行う場合"
 title: "[Feature]: "
-labels: "enhancement, feature"
+labels: "enhancement"
 ---
 
 ## 1. 前提・背景 (Context & User Story)
