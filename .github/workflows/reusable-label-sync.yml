@@ -43,6 +43,7 @@ jobs:
       - name: Sync labels via gh CLI
         env:
           GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
         run: |
           python3 - <<'PY'
           import subprocess
