@@ -1,0 +1,32 @@
+# pre-commit hooks
+#
+# 導入:
+#   pip install pre-commit && pre-commit install
+# 全件実行:
+#   pre-commit run --all-files
+#
+# 注意: シークレット検出は secret-scan ワークフロー（gitleaks）側で行うため、
+#       本設定には含めていません。
+
+default_install_hook_types: [pre-commit]
+default_stages: [pre-commit]
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: detect-private-key
+      - id: check-added-large-files
+        args: ['--maxkb=1024']
+      - id: check-merge-conflict
+      - id: check-case-conflict
+      - id: check-symlinks
+      - id: destroyed-symlinks
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+        args: ['--fix=lf']
+      - id: trailing-whitespace
+        exclude: \.md$
+      - id: check-yaml
+      - id: check-toml
+      - id: check-json
