@@ -1,0 +1,12 @@
+name: dependency-review
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  dependency-review:
+    uses: kenny-amp/.github/.github/workflows/reusable-dependency-review.yml@main
