@@ -8,10 +8,17 @@
 #       - cron: "0 4 * * 1"  # 毎週月曜 13:00 JST
 #   jobs:
 #     sync:
+#       # 呼び出し先が issues: write を要求するため、呼び出し元ジョブでも明示的に許可する。
+#       # 省略するとリポジトリの既定権限（read のみ）でキャップされ、ジョブが1つも
+#       # 起動しない startup_failure になる。
+#       permissions:
+#         issues: write
 #       uses: kenny-amp/.github/.github/workflows/reusable-label-sync.yml@main
 #
 # 前提: kenny-amp/.github の labels.yml をラベル定義の唯一のソースとして同期する。
 #       既存ラベルの色・説明も上書きされる（削除はしない: 未定義ラベルはそのまま残る）。
+#       labels.yml は raw.githubusercontent.com 経由で取得するため、kenny-amp/.github が
+#       public である必要がある（private に戻すとダウンロードが 404 になる）。
 name: reusable-label-sync
 
 on:

@@ -55,5 +55,45 @@ Issueテンプレートが参照するラベル（`bug`, `feature`, `priority-tr
 ## コーディング規約 / 静的解析
 各リポジトリの `.pre-commit-config.yaml` またはドキュメントに従ってください。共通の静的解析・セキュリティスキャンは組織共通の再利用可能ワークフロー（[`.github/workflows/`](./.github/workflows/)）を各リポジトリから呼び出すことで自動実行できます。
 
+## 新規リポジトリへの再利用可能ワークフロー導入手順
+本リポジトリ（`kenny-amp/.github`）が提供する再利用可能ワークフローを新しいリポジトリに導入する際の手順です。`kenny-amp/ai-tools` と `kenny-amp/ai-common-projects` が導入済みなので、実例としても参照してください。
+
+### 前提条件
+- `kenny-amp/.github` は public リポジトリです。再利用可能ワークフロー（`workflow_call`）は public な提供元であればどのリポジトリからでも呼び出せるため、呼び出し元リポジトリ側で追加の権限設定は不要です。
+  - 提供元を private に戻す場合は、提供元の Settings → Actions → General → **Access** で呼び出し元リポジトリを明示的に許可する必要があります（この設定が漏れると、対象ワークフローが 1 つもジョブを起動しない `startup_failure` になります）。
+- `label-sync` は `labels.yml` を `raw.githubusercontent.com` 経由で取得します。この方式は private リポジトリのファイルを取得できないため、`kenny-amp/.github` は public のまま維持してください。
+
+### 各ワークフローの導入
+呼び出し例は各再利用可能ワークフロー自身の先頭コメントにも記載しています（[`reusable-lint.yml`](./.github/workflows/reusable-lint.yml) / [`reusable-secret-scan.yml`](./.github/workflows/reusable-secret-scan.yml) / [`reusable-dependency-review.yml`](./.github/workflows/reusable-dependency-review.yml) / [`reusable-label-sync.yml`](./.github/workflows/reusable-label-sync.yml)）。
+
+| ワークフロー | 呼び出し元ファイル | 導入前の確認事項 |
+| --- | --- | --- |
+| `reusable-lint.yml` | `.github/workflows/lint.yml` | リポジトリ直下に `.pre-commit-config.yaml` が存在すること。存在しない場合は即座に失敗するため、用意できるまで導入を見送ってください。 |
+| `reusable-secret-scan.yml` | `.github/workflows/secret-scan.yml` | 必須ではありませんが、誤検知を除外するため `.gitleaks.toml` の用意を推奨します。未設置でも既定ルールで動作します。 |
+| `reusable-dependency-review.yml` | `.github/workflows/dependency-review.yml` | リポジトリの Settings → Code security and analysis → **Dependency graph** が有効であること。未確認の間は呼び出し元ジョブに `if: false` を付けて無効化しておいてください。 |
+| `reusable-label-sync.yml` | `.github/workflows/label-sync.yml` | 呼び出し元ジョブに **`permissions: issues: write` を明示すること**（後述）。 |
+
+`label-sync.yml` の呼び出し例（`permissions` の明示が必須）:
+```yaml
+name: label-sync
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 4 * * 1"  # 毎週月曜 13:00 JST
+
+jobs:
+  sync:
+    permissions:
+      issues: write
+    uses: kenny-amp/.github/.github/workflows/reusable-label-sync.yml@main
+```
+
+### 既知の落とし穴
+- **`permissions` の伝播**: 再利用可能ワークフローが要求する権限（例: `issues: write`）は、呼び出し元のジョブでも明示的に許可する必要があります。省略するとリポジトリの既定権限（read のみ）でキャップされ、`startup_failure`（ジョブが1つも起動しない）になります。エラーメッセージも残らないため気づきにくい点に注意してください。
+- **`workflow_call` の解決失敗**: 提供元リポジトリが private かつ Access 設定で許可されていない場合も同様に `startup_failure` になります（`referenced_workflows: []` でジョブが0件）。
+- **`raw.githubusercontent.com` は private リポジトリを認証なしで取得できない**: `label-sync` の `labels.yml` 取得はこの方式のため、`kenny-amp/.github` を private に戻すとダウンロードが 404 になります。
+- **`gh` CLI と対象リポジトリの自動判定**: `actions/checkout` を実行しないワークフロー内で `gh` コマンドを使う場合、`.git` が存在せず対象リポジトリを自動判定できないため `GH_REPO` 環境変数（または `--repo` フラグ）を明示する必要があります（`reusable-label-sync.yml` 内では対応済みのため、呼び出し元では意識不要です）。
+
 ## 行動規範
 すべての参加者は [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) を遵守してください。
