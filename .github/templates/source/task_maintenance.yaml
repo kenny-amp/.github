@@ -2,7 +2,7 @@ id: task_maintenance
 name: "作業・技術改善 (Task / Maintenance)"
 description: "リファクタリング、ライブラリ更新、CI/CD・開発環境の整備を行う場合"
 title_prefix: "[Task]: "
-labels: [maintenance, refactoring]
+labels: [maintenance]
 
 sections:
   - id: motivation

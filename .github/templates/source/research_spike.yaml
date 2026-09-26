@@ -2,7 +2,7 @@ id: research_spike
 name: "調査・スパイク (Research / Spike)"
 description: "技術検証、ライブラリ選定、設計検討などの調査を行う場合"
 title_prefix: "[Spike]: "
-labels: [research, spike]
+labels: [research]
 
 sections:
   - id: context
@@ -34,8 +34,8 @@ sections:
     heading: "4. 調査項目・検証観点 (Research Items)"
     kind: textarea
     value:
-      - "項目1: "
-      - "項目2: "
+      - "項目1:"
+      - "項目2:"
 
   - id: decision_criteria
     heading: "5. 意思決定・評価基準 (Decision Criteria)"

@@ -2,7 +2,7 @@ id: feature_request
 name: "機能追加・変更要求 (Feature Request)"
 description: "新規機能の追加や既存仕様の変更を行う場合"
 title_prefix: "[Feature]: "
-labels: [enhancement, feature]
+labels: [enhancement]
 
 sections:
   - id: context

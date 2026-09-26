@@ -5,7 +5,6 @@ description: "新規機能の追加や既存仕様の変更を行う場合"
 title: "[Feature]: "
 labels:
   - "enhancement"
-  - "feature"
 body:
   - type: textarea
     id: context
