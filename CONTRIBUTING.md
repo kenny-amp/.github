@@ -94,6 +94,8 @@ jobs:
 - **`workflow_call` の解決失敗**: 提供元リポジトリが private かつ Access 設定で許可されていない場合も同様に `startup_failure` になります（`referenced_workflows: []` でジョブが0件）。
 - **`raw.githubusercontent.com` は private リポジトリを認証なしで取得できない**: `label-sync` の `labels.yml` 取得はこの方式のため、`kenny-amp/.github` を private に戻すとダウンロードが 404 になります。
 - **`gh` CLI と対象リポジトリの自動判定**: `actions/checkout` を実行しないワークフロー内で `gh` コマンドを使う場合、`.git` が存在せず対象リポジトリを自動判定できないため `GH_REPO` 環境変数（または `--repo` フラグ）を明示する必要があります（`reusable-label-sync.yml` 内では対応済みのため、呼び出し元では意識不要です）。
+- **Repository Rulesets の必須ステータスチェック × `paths` フィルタは組み合わせ禁止**: `paths` フィルタ付きのワークフローを必須チェックに指定すると、対象外のファイルしか変更しないPRではジョブ自体が起動せず、そのチェックが永久に「Expected — Waiting」のままとなりマージ不可になります（2026-09-25、Dependabotの`actions/setup-python`更新PRで実害。`verify-issue-templates.yml`から`paths`フィルタを削除して解消）。必須チェックにする対象のワークフローには `paths` フィルタを付けないでください。
+- **private リポジトリでの有料プラン要件**: `dependency-review-action` は private リポジトリで GitHub Advanced Security（有料）が必須、Repository Rulesets（ブランチ保護）は private リポジトリで GitHub Pro（有料）が必須です。いずれも Dependency Graph の有効化だけでは不十分で、無料枠の private リポジトリでは利用できません（`ai-tools` / `ai-common-projects` での検証で確認済み）。
 
 ## 行動規範
 すべての参加者は [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) を遵守してください。

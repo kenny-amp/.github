@@ -2,18 +2,18 @@
 # （.github/ISSUE_TEMPLATE/*.md, *_form.yml）が最新かどうかを検証する。
 # ソースを直接編集しても generate_issue_templates.py --write を忘れると
 # ここで検知される。
+#
+# 注意: このジョブ（check）は Repository Rulesets の必須ステータスチェックに
+#       指定されている。paths フィルタを付けると対象外のファイルしか変更しない
+#       PR ではジョブ自体が起動せず、必須チェックが永久に「Expected — Waiting」
+#       のままとなりマージ不可になる（2026-09-25 Dependabot PR #2 で実害）。
+#       スクリプト自体は軽量なため、path フィルタを付けず全PR/pushで実行する。
 name: verify-issue-templates
 
 on:
   pull_request:
-    paths:
-      - ".github/templates/**"
-      - ".github/ISSUE_TEMPLATE/**"
   push:
     branches: [main]
-    paths:
-      - ".github/templates/**"
-      - ".github/ISSUE_TEMPLATE/**"
 
 permissions:
   contents: read
