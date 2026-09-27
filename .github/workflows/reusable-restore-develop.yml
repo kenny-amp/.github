@@ -1,0 +1,61 @@
+# 組織共通の再利用可能ワークフロー: mainマージ後のdevelop自動再作成
+#
+# 背景: developはprivateリポジトリ + GitHub FreeプランではRulesets/Branch Protectionによる
+#       削除保護がかけられない（2026-09-27確認: `GET /rulesets` および
+#       `PUT /branches/{branch}/protection` が403 "Upgrade to GitHub Pro..." を返す）。
+#       delete_branch_on_merge を有効化していると、develop→mainのPRがマージされた際に
+#       head側のdevelopが自動削除されてしまう。mainへのマージ直後にdevelopが無ければ
+#       即座に再作成することでこれを防ぐ（publicリポジトリで削除保護自体が使える場合は
+#       そちらが優先。setup_repo_baseline.pyのprotect_develop_from_deletion参照）。
+#
+# 呼び出し例（各リポジトリの .github/workflows/restore-develop-after-main-merge.yml）:
+#   name: restore-develop-after-main-merge
+#   on:
+#     pull_request:
+#       types: [closed]
+#       branches: [main]
+#   jobs:
+#     restore-develop:
+#       if: github.event.pull_request.merged == true
+#       permissions:
+#         contents: write
+#       uses: kenny-amp/.github/.github/workflows/reusable-restore-develop.yml@main
+#
+# 前提: head側ブランチ名がsource-branchかどうかは見ていない。mainへマージされる度に
+#       無条件でsource-branchの存在確認だけ行う軽量な仕組み（既に存在すれば何もしない）。
+name: reusable-restore-develop
+
+on:
+  workflow_call:
+    inputs:
+      target-branch:
+        description: "マージ先ブランチ（このブランチの最新コミットからsource-branchを再作成する）"
+        type: string
+        default: "main"
+      source-branch:
+        description: "存在確認・再作成の対象ブランチ"
+        type: string
+        default: "develop"
+
+permissions:
+  contents: write
+
+jobs:
+  restore:
+    name: restore-${{ inputs.source-branch }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: ブランチの存在確認・再作成
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          TARGET_BRANCH: ${{ inputs.target-branch }}
+          SOURCE_BRANCH: ${{ inputs.source-branch }}
+        run: |
+          if gh api "repos/${REPO}/git/ref/heads/${SOURCE_BRANCH}" >/dev/null 2>&1; then
+            echo "${SOURCE_BRANCH} は既に存在します。何もしません。"
+            exit 0
+          fi
+          TARGET_SHA=$(gh api "repos/${REPO}/git/ref/heads/${TARGET_BRANCH}" --jq .object.sha)
+          gh api "repos/${REPO}/git/refs" -f ref="refs/heads/${SOURCE_BRANCH}" -f sha="${TARGET_SHA}"
+          echo "${SOURCE_BRANCH} を ${TARGET_BRANCH} (${TARGET_SHA}) から再作成しました。"
