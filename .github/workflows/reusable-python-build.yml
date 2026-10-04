@@ -1,0 +1,43 @@
+# Python uv workspace の配布物を検証する共通ワークフロー。
+# 呼び出し元リポジトリで、1行につき1つのパッケージ名を packages に渡す。
+name: reusable-python-build
+
+on:
+  workflow_call:
+    inputs:
+      packages:
+        description: "uv workspace package names, one per line"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build workspace packages
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97  # v7.0.0
+        with:
+          python-version: '3.12'
+
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7  # v4
+        with:
+          version: "latest"
+
+      - name: Build distributions
+        env:
+          PACKAGES: ${{ inputs.packages }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          built=0
+          while IFS= read -r package; do
+            [[ -z "$package" ]] && continue
+            uv build --package "$package"
+            built=$((built + 1))
+          done <<< "$PACKAGES"
+          test "$built" -gt 0
